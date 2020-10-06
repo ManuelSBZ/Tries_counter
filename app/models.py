@@ -6,6 +6,7 @@ import datetime
 
 
 class UserTries(db.Model):
+    #cantidades actuales de intentos por usuario
     __tablename__='UserTries'
     #Primary key como atributo
     id=Column(Integer, primary_key=True, nullable=False)
@@ -16,6 +17,7 @@ class UserTries(db.Model):
     date_reference = Column(DateTime, nullable=False, default=datetime.datetime.now()) 
 
 class Limits(db.Model):
+    #cantidades maximas de intentos
     __tablename__="Limits"
     id=Column(Integer, primary_key=True, nullable=False)
     id_cliente=Column(Integer, nullable=False)
