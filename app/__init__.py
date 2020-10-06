@@ -5,7 +5,7 @@ def create_app(configfile):
     app = Flask(__name__)
     app.config.from_pyfile(configfile)
 
-    from .models import Limits, UserTries
+    from .models import User,Client,Limits,UserTriesPerIdClient
     from .counter import counter
     
     app.register_blueprint(counter)
