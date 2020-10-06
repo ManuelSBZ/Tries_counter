@@ -21,6 +21,7 @@ def counter_func(user_mapper, id_usuario, id_cliente, limits_mapper, db_object):
         # reasignando registro para intentos de usuario
         user_result = user_mapper.query.filter_by(id_user = id_usuario).first()
     
+    #
     current_year = datetime.datetime.now().year
     current_month = datetime.datetime.now().month
     current_day = datetime.datetime.now().day
@@ -52,14 +53,14 @@ def counter_func(user_mapper, id_usuario, id_cliente, limits_mapper, db_object):
     print(f"id_cliente:{id_cliente}")
     limits = limits_mapper.query.filter_by(id_cliente = id_cliente).first()
     print(f"e {limits.__dict__}")
-
+    #tries
     if user_result.year >= limits.year:
         return (0, "year")
     if user_result.month >= limits.month:
         return (0, "month")
     if user_result.day >= limits.day:
         return (0, "day")
-
+    #update
     user_result.year,user_result.month,user_result.day= (user_result.year+1,
                                                         user_result.month+1,
                                                         user_result.day+1)

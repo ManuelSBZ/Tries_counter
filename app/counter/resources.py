@@ -16,7 +16,7 @@ def counter_validation(user_id,client_id):
     if result[0] == 0:
         return f"We are sorry, you just have exceeded your chances at this {result[1]} "
     else:
-        return "process ..."
+        return "process continuation ..."
 
 @counter.route("/addlimits", methods=["GET"])
 def add_limits():
