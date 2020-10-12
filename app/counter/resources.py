@@ -1,9 +1,8 @@
 from . import counter
-from ..ext import db, redis_connection as r
+from ..ext import db
 from ..models import User,Client,Limits,UserTriesPerIdClient
 from ..func import counter_func_
 from typing import Tuple
-from flask import request
 
 
 @counter.route("/counter/<int:user_id>/<int:client_id>", methods=["GET","POST"])
@@ -28,27 +27,4 @@ def counter_validation(user_id,client_id):
 #    db.session.add(register)
 #    db.session.commit()
 #    return "OK"
-@counter.route("/addtoredis", methods = ["GET","POST"])
-def add_redis():
-    size_query = len(list(request.args.keys()))
-    aux = request.args
-    print(aux)
-    if size_query != 0:
-        query_string = request.args
-        print(query_string)
-        return query_string
-    return "ok nothing"
-
-@counter.route("/redis", methods = ["GET","POST"])
-def addtoredis():
-    query = reques.args
-
-    r.mset({"Croatia": "Zagreb", "Bahamas": "prusia"})
-
-    city = r.get("Bahamas")
-
-    return city
-        
-        
-
                                 
