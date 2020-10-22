@@ -3,4 +3,4 @@ try:
 except ImportError:
     from .app import create_app
     
-app = create_app("config.py")
+apk = create_app("config.py")

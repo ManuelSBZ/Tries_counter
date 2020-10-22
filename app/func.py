@@ -79,6 +79,7 @@ def counter_func_(id_user_mapper,
 
     #VALIDACION EXISTENCIA USUARIO SINO CREAR
     user_result = id_user_mapper.query.filter_by(id_user = id_usuario).first()
+    
     object_client = id_client_mapper.query.filter_by(id_client=id_cliente).first()
 
     if object_client is None:
@@ -86,7 +87,7 @@ def counter_func_(id_user_mapper,
         return "please you must to fill the table client and relate it to a limit"
         
     if user_result is None:
-        print("NONE")
+        print("User result : NONE")
         # insertando nuevo usuario en User
         data_user = {"id_user":id_usuario}
         user_to_insert = id_user_mapper(**data_user)
@@ -104,8 +105,9 @@ def counter_func_(id_user_mapper,
         db_object.session.commit()
 
     # recuperando registro de user_tries
-    user_tries_result = user_tries_mapper.query.filter_by(id_user = id_usuario, 
+    user_tries_result = user_tries_mapper.query.filter_by(id_user = user_result.id, 
                                                           id_client= object_client.id).first()
+    print(f"user_tries_result : {user_tries_result}")
     if user_tries_result is None:
         data_user_tries = {"day":0,
                            "month":0,
