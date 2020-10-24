@@ -165,5 +165,4 @@ def counter_func_(id_user_mapper,
                                                         user_tries_result.day+1)
     db_object.session.commit()
     return (1,"succesfully")
-        
-                
+
