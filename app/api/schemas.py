@@ -45,7 +45,7 @@ class ClientSchema(Schema):
                             self_view="api_v1.client_asso",
                             self_view_kwargs={"id":"<id>"},
                             related_view="api_v1.tries_list",
-                            related_view_kwargs={"client_id":"<id>"},
+                            related_view_kwargs={"id_client":"<id>"},
                             schema="TriesSchema",
                             type_="tries"
                         )
@@ -95,7 +95,7 @@ class UserSchema(Schema):
                             self_view="api_v1.user_asso",
                             self_view_kwargs={"id":"<id>"},
                             related_view="api_v1.tries_list",
-                            related_view_kwargs={"user_id":"<id>"},
+                            related_view_kwargs={"id_user":"<id>"},
                             schema="TriesSchema",
                             type_="tries"
                         )
