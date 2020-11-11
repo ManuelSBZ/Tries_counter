@@ -36,7 +36,7 @@ class ClientSchema(Schema):
     limit = Relationship(   self_view='api_v1.client_limit',
                             self_view_kwargs={'id': '<id>'},
                             related_view='api_v1.limit_detail',
-                            related_view_kwargs={'id': '<id>'},
+                            related_view_kwargs={'id_client': '<id>'},
                             schema='LimitSchema',
                             type_='limit'
                             )

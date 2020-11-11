@@ -144,7 +144,7 @@ class ClientList(ResourceList):
             except NoResultFound:
                 raise ObjectNotFound({'parameter': 'id'}, "Limits:{} not found".format(view_kwargs.get("limit_id")))
             else:
-                query_=query_.filter(Client.LimitsId == view_kwargs.get("limit_id"))
+                query_=query_.filter(Client.id_limit == view_kwargs.get("limit_id"))
                 # retornando query de los clientes relcionados con el limite especifiado por el id
         return query_
     def before_create_object(self,data, view_kwargs):
