@@ -43,3 +43,16 @@ class Limits(db.Model):
 
 
 
+class Owner(db.Model):
+    __tablename__ = "Owner"
+    id=Column(Integer, primary_key=True, nullable=False)
+    public_id = Column(String(50), unique=True, nullable=False)
+    name = Column(String(35), unique=True, nullable=False)
+    password_hash = Column(String(255), unique=True, nullable=False)
+
+    @property
+    def password(self):
+        raise AttributeError("not allowed to read attribute password")
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)

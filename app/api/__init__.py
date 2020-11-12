@@ -1,9 +1,25 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify, request,current_app
+from ..models import Owner
 from ..ext import api
+from ..func import token_required
 from .resources import *
 
 print(f"NOMBRE:{__name__}")
 api_v1 = Blueprint("api_v1", __name__+"_v1", url_prefix="/api")
+@api_v1.before_request
+def token_request():
+    import jwt
+    token = request.headers.get('x-access-tokens')
+
+    if not token:
+        return jsonify({'message': 'a valid token is missing'})
+
+    try:
+        data = jwt.decode(token, current_app.config["SECRET_KEY"])
+        current_user = Owner.query.filter_by(public_id=data['public_id']).first()
+    except:
+        return jsonify({'message': 'token is invalid'})
+
 
 api.route(LimitList, 'limit_list', '/limits')
 api.route(LimitDetail, 'limit_detail', '/limits/<int:id>', '/clients/<int:id_client>/limit')

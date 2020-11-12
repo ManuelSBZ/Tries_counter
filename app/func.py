@@ -1,6 +1,10 @@
 
 #LIMITES estan definidos en la tabla limits_mapper, por ahora se contempla 
 #Dias,mes y año.
+from .models import Owner
+from flask import jsonify, request, current_app
+from functools import wraps
+
 
 def counter_func(user_mapper, id_usuario, id_cliente, limits_mapper, db_object):
 
@@ -166,3 +170,24 @@ def counter_func_(id_user_mapper,
     db_object.session.commit()
     return (1,"succesfully")
 
+def token_required(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        import jwt
+        token = None
+
+        if 'x-access-tokens' in request.headers:
+            token = request.headers['x-access-tokens']
+
+        if not token:
+            return jsonify({'message': 'a valid token is missing'})
+
+        try:
+            data = jwt.decode(token, current_app.config["SECRET_KEY"])
+            current_user = Owner.query.filter_by(public_id=data['public_id']).first()
+        except:
+            return jsonify({'message': 'token is invalid'})
+
+        return f(current_user, *args, **kwargs)
+
+    return decorator
